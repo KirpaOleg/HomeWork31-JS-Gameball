@@ -29,12 +29,21 @@ select {
   justify-content: center;
 }
 .game {
-  height: 500px;
+  height: 350px;
   width: 600px;
   border: 2px solid black;
   border-radius: 5px;
   margin-right: 20px;
   margin-top: 10px;
+  position: absolute;
+}
+.game2 {
+  height: 330px;
+  width: 600px;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-right: 20px;
+  margin-top: 370px;
   position: absolute;
 }
 .score {
@@ -45,6 +54,15 @@ select {
   align-items: center;
 }
 .ball {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  border: 1px solid black;
+  background-color: green;
+  position: relative;
+  display: none;
+ }
+ .ball2 {
   height: 50px;
   width: 50px;
   border-radius: 100%;
@@ -68,3 +86,9 @@ select {
   border-radius: 5px;
   margin-left: 10px;
  }
+//  @keyframes topmove {
+//   0% { top: 0; left: 0; }
+//   30% { top: 50px; }
+//   68% { left: 50px; }
+//   100% { top: 100px; left: 100%; }
+// }

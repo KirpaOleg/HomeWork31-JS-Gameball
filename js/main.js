@@ -1,76 +1,92 @@
 // Получаем доступ к необходимым узлам
 const game = document.querySelector('.game');
 const ball = document.querySelector('.ball');
+const game2 = document.querySelector('.game2'); // для DVD
+const ball2 = document.querySelector('.ball2'); // для DVD
 const startBtn = document.querySelector('.start');
 const scorelevel = document.querySelector('.scorelevel');
 const select = document.querySelector('select');
 
+// Переменные 
+let SpeedTimer = 10;
 
-let moveX = 200;
-let moveY = 200;
-let speedX = 5;
-let speedY = 5;
-let SpeedTimer = 60;
+// Рандомайзер
+const randomInteger = (min, max) => {
+  let rand = min - 0.5 + Math.random() * (max - min + 1);
+  return Math.floor(rand)
+};
 
-// console.log(ball2);
-// console.log(ball2.style);  
+// Уровень сложности
+select.addEventListener('change', () => {
+  if (select.selectedIndex === 0) {
+    SpeedTimer = SpeedTimer;
+  } 
+  if (select.selectedIndex === 1) {
+     SpeedTimer = SpeedTimer * 10;
+  };
+  console.log(select.selectedIndex);
+  console.log(SpeedTimer);
+});
 
 startBtn.addEventListener('click', () => {
-  // появление при клике
+  // появление мяча при клике
   ball.style.display = 'block';
- 
+  // Рандомное движение мяча
   const movePlay = () => {
-    // движение в рамках заданого поля
-    if (moveX +  ball.clientWidth >= game.clientWidth || moveX <= 0) {
-      speedX = -speedX 
-    }
-    if (moveY +  ball.clientHeight >= game.clientHeight || moveY <= 0) {
-      speedY = -speedY 
-    }
-    moveX += speedX;
-    moveY += speedY;
-
-    // Math.floor(Math.random(speedX)*10);
-    // Math.floor(Math.random(speedY)*10);
-    // console.log(moveX,moveY);
-    // console.log(speedX,speedY);
-
-    ball.style.left = `${moveX}px`;
-    ball.style.top = `${moveY}px`;
-    // console.log(moveX,moveY);
-    
+    topSize = randomInteger(0, 297);
+    leftSize = randomInteger(0, 547);
+    // console.log(topSize, leftSize);
+    ball.style.left = `${leftSize}px`;
+    ball.style.top = `${topSize}px`;
   };
 
   // счетчик кливов на мяч
   let clicks = 0;
-  ball.addEventListener('click', (event) => {
+  ball.addEventListener('click', () => {
     clicks += 1;
     scorelevel.innerHTML = clicks;
-    // event.target.slyle.backgroundColor = 'red'; // не работает
     if (clicks === 5) {
       game.innerHTML = `THE END`;
       clearInterval(stop);
     }
   });
-
-  // Уровень сложности
-  // if (select.options[0] === true) {
-  //   SpeedTimer = SpeedTimer;
-  // }
-  // if (select.options[1] === true) {
-  //   SpeedTimer = SpeedTimer * 2;
-  // };
-
-  const stop = setInterval(movePlay, 1000/SpeedTimer);
-  
+  console.log(SpeedTimer);
+  const stop = setInterval(movePlay, 10000 / SpeedTimer); 
 }); 
 
-  // Изменение цвета по клику и возврат обратно не работает
-  // ball.addEventListener('mousedown', () => {
-  //   ball.classList.add('color');
-  // });
-  // ball.addEventListener('mousedown', () => {
-  //   ball.classList.remove('color');
-  // });
+// Изменение цвета по клику и возврат обратно не работает
+ball.addEventListener('mousedown', () => {
+ball.classList.add('color');
+});
+ball.addEventListener('mouseup', () => {
+ball.classList.remove('color');
+});
 
 
+//  Движение мяча по траектории DVD............
+
+// Создаем необходимые переменные для DVD
+let moveX = 200;
+let moveY = 200;
+let speedX = 5;
+let speedY = 5;
+
+startBtn.addEventListener('click', () => {
+  // появление мяча при клике
+  ball2.style.display = 'block';
+   
+  const movePlayDVD = () => {
+    if (moveX +  ball2.clientWidth >= game2.clientWidth || moveX <= 0) {
+        speedX = -speedX 
+    }
+    if (moveY +  ball2.clientHeight >= game2.clientHeight || moveY <= 0) {
+        speedY = -speedY 
+    }
+      moveX += speedX;
+      moveY += speedY;
+
+    ball2.style.left = `${moveX}px`;
+    ball2.style.top = `${moveY}px`;
+  };
+  const stop = setInterval(movePlayDVD, 1000/60);
+}); 
