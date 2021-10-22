@@ -7,6 +7,8 @@ const startBtn = document.querySelector('.start');
 const scorelevel = document.querySelector('.scorelevel');
 const select = document.querySelector('select');
 
+
+
 // Переменные 
 let SpeedTimer = 10;
 
@@ -19,13 +21,13 @@ const randomInteger = (min, max) => {
 // Уровень сложности
 select.addEventListener('change', () => {
   if (select.selectedIndex === 0) {
-    SpeedTimer = SpeedTimer;
+    ball.classList.add('selekt1');
+    ball.classList.remove('selekt2');
   } 
   if (select.selectedIndex === 1) {
-     SpeedTimer = SpeedTimer * 10;
+    ball.classList.add('selekt2');
+    ball.classList.remove('selekt1');
   };
-  console.log(select.selectedIndex);
-  console.log(SpeedTimer);
 });
 
 startBtn.addEventListener('click', () => {
@@ -33,11 +35,13 @@ startBtn.addEventListener('click', () => {
   ball.style.display = 'block';
   // Рандомное движение мяча
   const movePlay = () => {
-    topSize = randomInteger(0, 297);
-    leftSize = randomInteger(0, 547);
+    const maxTop = game.clientHeight - ball.clientHeight;
+    const maxLeft = game.clientWidth - ball.clientWidth;
+    // console.log(game.clientHeight, ball.clientHeight, maxTop);
+    topSize = randomInteger(0, maxTop);
+    leftSize = randomInteger(0, maxLeft);
     // console.log(topSize, leftSize);
-    ball.style.left = `${leftSize}px`;
-    ball.style.top = `${topSize}px`;
+    ball.style.transform = `translate(${leftSize}px, ${topSize}px)`;
   };
 
   // счетчик кливов на мяч
@@ -64,7 +68,6 @@ ball.classList.remove('color');
 
 
 //  Движение мяча по траектории DVD............
-
 // Создаем необходимые переменные для DVD
 let moveX = 200;
 let moveY = 200;

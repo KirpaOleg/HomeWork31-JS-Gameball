@@ -60,7 +60,14 @@ select {
   border: 1px solid black;
   background-color: green;
   position: relative;
+  transition: 1s transform;
   display: none;
+ }
+ .selekt1 {
+  transition: 1s transform;
+ }
+ .selekt2 {
+  transition: 0.1s transform;
  }
  .ball2 {
   height: 50px;
